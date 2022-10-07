@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
+
+{% block content %}
+
+
+    <section class="bg-text-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    {% if message == 'error' %}
+                        <div class="alert alert-danger " role="alert">
+
+                            <p>Вы уже активировали аккаунт, теперь Вы можете перейти к авторизации</p>
+                            <a href="{% url 'login' %}">Авторизоваться </a>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success" role="alert">
+                            <p>Вы успешно зарегистрировались и вошли в систему. Если в течение 5 секунд не
+                                произошло</p>
+                            <p>перенаправление, то, пожалуйста, нажмите на кнопку перехода</p>
+                            <a href="{% url 'home' %}">Главное меню </a>
+                        </div>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+{% endblock %}

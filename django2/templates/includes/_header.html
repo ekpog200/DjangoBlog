@@ -1,0 +1,32 @@
+{% load menu %}
+{% load checkgroupuserperm %}
+<header class="header">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-2">
+                {% if request.user.is_authenticated and request.user|has_group:"moderators(c.u.d)" %}
+                    <div class="dropdown " style="margin-top: 2px">
+
+                        <button class="btn btn-lg btn-secondary dropdown-toggle " type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h4>Управление</h4>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'add_news' %}">Добавить новость</a></li>
+                            <li><a class="dropdown-item" href="#">Отправить письмо пользователям</a></li>
+                        </ul>
+                    </div>
+
+                {% else %}
+                    <div class="logo">
+                        <h2><a href="#">Classic</a></h2>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-10">
+                {% show_menu %}
+            </div>
+        </div>
+    </div>
+</header>

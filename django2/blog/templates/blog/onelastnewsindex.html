@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="single-post-big">
+    {% if content.photo %}
+        <div class="big-image">
+            <img src="{{ content.photo.url }}" alt=''>
+        </div>
+        {% else %}
+        <div class="big-image">
+            <img src="{% static 'img/post-image1.jpg' %}" alt=''>
+        </div>
+    {% endif %}
+    <div class="big-text">
+        <h3><a href="{{ content.get_absolute_url }}">{{content.title}}</a></h3>
+            {{ content.content|safe|truncatewords:170 }}
+        <h4><span class="date">{{ content.created_at|date:"j M Y" }}</span><span class="author">Автор: <span
+                class="author-name">{{ content.author }}</span></span>
+        </h4>
+    </div>
+</div>

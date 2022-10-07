@@ -1,0 +1,39 @@
+{% load menu %}
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-bg">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="footer-menu">
+                                {% if request.user.is_authenticated %}
+                                    <ul>
+                                        <li><span
+                                                style="color: #fff;font-size: 15px;font-weight: 600;font-family: sans-serif;margin-left: 40px;">Добро пожаловать, {{ user.username }} </span>
+                                            <a href="{% url 'logout' %}"> Выход</a></li>
+                                    </ul>
+                                {% else %}
+                                    <ul>
+                                        <li><a href="{% url 'register' %}">Зарегистрироваться</a></li>
+                                        <li><a href="{% url 'login' %}">Войти</a></li>
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            {#                            {% show_menu 'footer-menu' %}#}
+                        </div>
+                        <div class="col-md-3">
+                            <div class="footer-icon">
+
+                                <p><a href="https://vk.com/zuzrr"><i class="fa fa-vk" aria-hidden="true"></i></a><a
+                                        href="https://github.com/ekpog200"><i class="fa fa-github"
+                                                                              aria-hidden="true"></i></a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

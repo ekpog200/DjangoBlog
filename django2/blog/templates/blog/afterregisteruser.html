@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
+
+{% block content %}
+
+
+    <section class="bg-text-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if message == 'success' %}
+                        <div class="alert alert-success" role="alert">
+                            <p>Вы успешно зарегистрировались и вошли в систему. Вам необходимо подтвердить Ваш e-mail.
+                                Пожалуйста, проверьте почту. </p>
+                            <p>Если в течение 5 секунд не произошло перенаправление, то, пожалуйста, нажмите на кнопку
+                                перехода</p>
+                            <a href="{% url 'home' %}">Главное меню </a>
+                        </div>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load static %}
+
+
+<div class="grid" style="position: relative; ">
+    {% for post in content %}
+
+        <div class="portfolio-item recent " style="position: relative; left: 0px; top: 0px;" >
+            {% if post.photo %}
+                <img src="{{ post.photo.url }}" alt="">
+            {% else %}
+                <img src="{% static 'img/portfolio1.jpg' %}" alt="">
+            {% endif %}
+            <div class="portfolio-text">
+                <h5><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                <p>By {{ post.author }} <span>|</span>{{ post.created_at|date:"j m Y" }}</p>
+            </div>
+        </div><br>
+    {% endfor %}
+</div>

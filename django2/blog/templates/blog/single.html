@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ posts.title }} :: {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <section class="single-blog-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="border-top">
+                        <div class="col-md-8">
+                            <div class="blog-area">
+                                <div class="blog-area-part">
+                                    <h2>{{ posts.title }}</h2>
+                                    <div class="for-style">
+                                        {{ posts.content|safe }}
+                                    </div>
+                                    <img src="{% static 'img/single-bg.jpg' %}" alt="">
+
+                                </div>
+                                <div class="ads-area">
+                                    <img src="{% static 'img/ads.jpg' %}" alt="">
+                                    <p>Your Ad Banner Goes Here</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="newsletter">
+                                <h2 class="sidebar-title">Search</h2>
+                                <form action="{% url 'search' %}" method="get">
+                                    <input type="text" name="s" placeholder="Search..."><br><br>
+                                    <input type="submit" value="Search">
+                                </form>
+                            </div>
+
+
+{#                            <div class="button-group filters-button-group">#}
+                                {#                                <button class=" is-checked">Recent</button>#}
+{##}
+{#                                <button data-filter=".recent" data-recentjquery="{% recent_posts_tpl 6 %}" class="button is-checked">Recent</button>#}
+{#                                <button data-filter=".popular" data-popularjquery="{% popular_posts_tpl 6 %}" class="button">popular</button>#}
+{#                                <button data-filter=".users" data-usersjquery="usersjquery" class="button">Users</button>#}
+{#                            </div>#}
+
+
+
+
+                            <div class="tags">
+
+                                <h2 class="sidebar-title">Tags</h2>
+                                {% if posts.tags.exists %}
+                                    {% for tag in posts.tags.all %}
+                                        <p><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
+
+                                    {% endfor %}
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}
