@@ -19,13 +19,7 @@ class Add_new(forms.ModelForm):
             # 'news_day': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
-        def clean_slug(self):
-            title = self.cleaned_data['title'].strip()
-            slug = slugify(title)
-            if Post.objects.get(slug=slug).exists():
-                slug += "1"
 
-            return slug
 
 
 

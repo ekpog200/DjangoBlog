@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.db import transaction
-from django.template.defaultfilters import slugify
+from blog.snippets.blog.slug import unique_slugify
 
 
 class Category (models.Model):
@@ -53,6 +53,7 @@ class Post(models.Model):
 
     @transaction.atomic
     def save(self, *args, **kwargs):
+        unique_slugify(self, self.title)
         if self.news_day:
             Post.objects.filter(
                 news_day=True).update(news_day=False)

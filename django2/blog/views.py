@@ -22,6 +22,7 @@ def add_news(request):
         if request.method == "POST":
             forms = Add_new(request.POST, request.FILES)
             if forms.is_valid():
+                forms.save(commit=False)
 
                 return redirect(forms.save())
         else:
