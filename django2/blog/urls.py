@@ -21,15 +21,15 @@ urlpatterns = [
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('reset/done/',
-         auth_views.PasswordResetCompleteView.as_view(template_name='blog/password_change_done.html'),
+         auth_views.PasswordResetCompleteView.as_view(template_name='blog/RegAuth/resetPassword/password_change_done.html'),
          name='password_reset_complete'),
 
     path('reset/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(template_name='blog/password_change.html'),
+         auth_views.PasswordResetConfirmView.as_view(template_name='blog/RegAuth/resetPassword/password_change.html'),
          name='password_reset_confirm'),
 
     path('password_reset/done/',
-         auth_views.PasswordResetDoneView.as_view(template_name='blog/password_reset_done.html'),
+         auth_views.PasswordResetDoneView.as_view(template_name='blog/RegAuth/resetPassword/password_reset_done.html'),
          name='password_reset_done'),
     path('password_reset/', reset_password_new,
          name='reset_password_new'),

@@ -50,7 +50,7 @@ def reset_password_new(request):
             if user:
                 subject = "Попытка изменения пароля"
                 current_site = get_current_site(request)
-                message = render_to_string('blog/password_reset_email.html', {
+                message = render_to_string('blog/RegAuth/resetPassword/password_reset_email.html', {
                     'user': user,
                     'domain': '127.0.0.1:8000',
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -69,7 +69,7 @@ def reset_password_new(request):
             else:
                 messages.error(request, 'Пользователь не найден, напишите администратору')
                 return redirect('reset_password_new')
-    return render(request=request, template_name='blog/password_reset_form.html')
+    return render(request=request, template_name='blog/RegAuth/resetPassword/password_reset_form.html')
 
 
 def loginuser(request):
@@ -81,7 +81,7 @@ def loginuser(request):
             return redirect('home')
     else:
         forms = LoginUser()
-    return render(request, 'blog/login.html', {'forms': forms})
+    return render(request, 'blog/RegAuth/login/login.html', {'forms': forms})
 
 
 def activateuser(request, uidb64, token):
@@ -94,11 +94,11 @@ def activateuser(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        message = 'error'
-        return render(request, 'blog/afteractivateuser.html', {'message': message})
-    else:
         message = 'success'
-        return render(request, 'blog/afteractivateuser.html', {'message': message})
+        return render(request, 'blog/RegAuth/registration/afteractivateuser.html', {'message': message})
+    else:
+        message = 'error'
+        return render(request, 'blog/RegAuth/registration/afteractivateuser.html', {'message': message})
 
 
 def registrationuser(request):
@@ -110,7 +110,7 @@ def registrationuser(request):
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Activation link has been sent to your email id'
-            message = render_to_string('blog/acc_active_email.html', {
+            message = render_to_string('blog/RegAuth/registration/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -122,10 +122,10 @@ def registrationuser(request):
             )
             email.send()
             rd = 'success'
-            return render(request, 'blog/afterregisteruser.html', {'message': rd})
+            return render(request, 'blog/RegAuth/registration/afterregisteruser.html', {'message': rd})
     else:
         forms = Register()
-    return render(request, 'blog/register.html', {'forms': forms, 'message': messages})
+    return render(request, 'blog/RegAuth/registration/register.html', {'forms': forms, 'message': messages})
 
 
 class Home(ListView):

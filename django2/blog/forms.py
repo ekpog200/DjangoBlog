@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm,UserCreationForm
 from django.template.defaultfilters import slugify
 from .models import *
 
@@ -28,7 +28,7 @@ class LoginUser(AuthenticationForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
-class Register(forms.ModelForm):
+class Register(UserCreationForm):
     email = forms.EmailField(label='Почта', help_text='Required',
                              widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -37,32 +37,20 @@ class Register(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username','email','password1','password2')
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-    def clean_password2(self):
-        clean_pass = self.cleaned_data
-        if clean_pass['password1'] != clean_pass['password2']:
-            raise forms.ValidationError("Пароли не совпадают")
-        return clean_pass
-
+    # def clean_password2(self):
+    #     clean_pass = self.cleaned_data
+    #     if clean_pass['password1'] != clean_pass['password2']:
+    #         raise forms.ValidationError("Пароли не совпадают")
+    #     return clean_pass
+    #
     def clean_email(self):
         email = self.cleaned_data['email'].strip()
         if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError("Данный e-mail адрес уже используется")
         return email
 
-# class Resetpasswordnew(PasswordResetForm):
-#
-#     class Meta:
-#         model = User
-#         fields = ('email',)
-#
-#     def clean_email(self):
-#         email = self.cleaned_data['email'].strip()
-#         if User.objects.filter(email__iexact=email).exists():
-#             return email
-#         else:
-#             raise forms.ValidationError("Данный e-mail адрес не найден")
