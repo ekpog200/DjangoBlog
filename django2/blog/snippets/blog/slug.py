@@ -1,5 +1,7 @@
 import re
 from django.template.defaultfilters import slugify
+from transliterate import translit, get_available_language_codes, detect_language
+from transliterate.exceptions import LanguageDetectionError
 
 
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
@@ -19,6 +21,11 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
     slug_len = slug_field.max_length
 
     # Sort out the initial slug, limiting its length if necessary.
+    try:
+        value = translit(value, reversed=True)
+    except LanguageDetectionError:
+        pass
+
     slug = slugify(value)
     if slug_len:
         slug = slug[:slug_len]

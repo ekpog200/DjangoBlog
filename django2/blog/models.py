@@ -4,6 +4,7 @@ from django.db import transaction
 from blog.snippets.blog.slug import unique_slugify
 
 
+
 class Category (models.Model):
     title = models.CharField(max_length=255, verbose_name='Категория')
     slug = models.SlugField(max_length=255, verbose_name='Url', unique=True)
@@ -53,7 +54,11 @@ class Post(models.Model):
 
     @transaction.atomic
     def save(self, *args, **kwargs):
-        unique_slugify(self, self.title)
+
+        if not self.slug:
+            unique_slugify(self, self.title)
+
+
         if self.news_day:
             Post.objects.filter(
                 news_day=True).update(news_day=False)
